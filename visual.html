@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Novel Screen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+    <script>
+      const navEntry = performance.getEntriesByType("navigation")[0];
+      if (navEntry && navEntry.type === 'reload') {
+        window.location.href = 'index.html';
+      }
+    </script>
+</head>
+<body>
+    <div class="phone" id="phone">
+        <div class="screen screen-active" id="vn-screen">
+            <div class="status-bar">
+                <span class="status-time px" id="vn-time">9:41</span>
+                <div class="status-icons">
+                    <div class="signal-bars">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <span class="status-wifi">WiFi</span>
+                    <span>&#x1F50B;</span>
+                </div>
+            </div>
+            <!-- VN background (changes mood via JS class) -->
+            <div class="vn-bg" id="vn-bg"></div>
+
+            <!-- Scanline overlay -->
+            <div class="vn-scanlines"></div>
+
+            <!-- Floating particles for VN -->
+            <div id="vn-particles" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2;"></div>
+
+            <!-- Val character portrait area -->
+            <div class="vn-portrait-area" id="vn-portrait-area">
+                <div class="vn-portrait-frame" id="vn-portrait-frame">
+                    <div class="vn-portrait-emoji" id="vn-portrait-emoji">&#128522;</div>
+                </div>
+                <div class="vn-portrait-name px">Dudu</div>
+            </div>
+
+            <!-- Dialogue textbox -->
+            <div class="vn-textbox" id="vn-textbox">
+                <div class="vn-nameplate px" id="vn-nameplate">Dudu</div>
+                <div class="vn-text" id="vn-text"></div>
+                <div class="vn-continue px" id="vn-continue">&#9660;</div>
+            </div>
+
+            <!-- Choice overlay -->
+            <div class="vn-choices" id="vn-choices" style="display:none"></div>
+
+            <!-- Ending overlay -->
+            <div class="vn-ending" id="vn-ending" style="display:none">
+                <div class="vn-ending-inner">
+                    <div class="vn-ending-title px" id="vn-ending-title"></div>
+                    <div class="vn-results-panel">
+                        <div class="vn-results-portrait">
+                            <div class="vn-portrait-final" id="vn-portrait-final">
+                                <!-- Final portrait will be inserted here -->
+                            </div>
+                        </div>
+                        <div class="vn-result-sep"></div>
+                        <div class="vn-results-stats">
+                            <div class="vn-result-item">
+                                <span class="vn-result-label">Affection</span>
+                                <span class="vn-result-value" id="result-affection">MAX</span>
+                            </div>
+                            <div class="vn-result-sep"></div>
+                            <div class="vn-result-item">
+                                <span class="vn-result-label">Got Item:</span>
+                                <span class="vn-result-value" id="result-item"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vn-ending-desc" id="vn-ending-desc"></div>
+                    <button class="rpg-btn-primary px vn-replay-btn" onclick="restartVN()">
+                        &#9829; PLAY AGAIN &#9829;
+                    </button>
+                </div>
+            </div>
+            <button class="music-toggle" id="music-toggle-btn">🔊</button>
+        </div>
+    </div>
+
+    <audio data-sound="click" src="sounds/click.mp3" preload="auto"></audio>
+    <audio data-sound="bg" src="sounds/bg-music.mp3" preload="auto" loop></audio>
+    <audio data-sound="transition" src="sounds/yandere-1.mp3" preload="auto"></audio>
+    <audio data-sound="yandere" src="sounds/bad ending.mp3" preload="auto"></audio>
+    <audio data-sound="secret" src="sounds/Secret.mp3" preload="auto"></audio>
+    <audio data-sound="victory" src="sounds/victory.mp3" preload="auto"></audio>
+    <script src="functions.js"></script>
+</body>
+</html>

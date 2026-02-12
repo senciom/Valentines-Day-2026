@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Screen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+    <script>
+      const navEntry = performance.getEntriesByType("navigation")[0];
+      if (navEntry && navEntry.type === 'reload') {
+        window.location.href = 'index.html';
+      }
+    </script>
+</head>
+<body>
+    <div class="phone" id="phone">
+        <div class="screen screen-active" id="login-screen">
+            <div id="login-particles" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;"></div>
+
+            <div class="status-bar">
+                <span class="status-time px" id="login-time">9:41</span>
+                <div class="status-icons">
+                    <div class="signal-bars">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                    <span class="status-wifi">WiFi</span>
+                    <span>&#x1F50B;</span>
+                </div>
+            </div>
+
+            <div class="login-scroll">
+                <div class="login-title-block">
+                    <div class="px login-game-badge">Valentine's Quest</div>
+                    <span class="px login-pixel-title" id="login-pixel-title"></span>
+                    <span class="px login-pixel-sub">&mdash; Player Select &mdash;</span>
+                </div>
+
+                <div class="hp-row" id="hp-row">
+                    <span class="px hp-label">LOVE</span>
+                </div>
+
+                <div class="rpg-panel">
+                    <span class="rpg-corner tl">&#9829;</span>
+                    <span class="rpg-corner tr">&#9829;</span>
+                    <span class="rpg-corner bl">&#9829;</span>
+                    <span class="rpg-corner br">&#9829;</span>
+
+                    <span class="rpg-label px">Player Name</span>
+                    <div class="rpg-row">
+                        <span class="rpg-arrow px">&#9654;</span>
+                        <input class="rpg-input" id="user-name" type="text"
+                               placeholder="ENTER NAME..."
+                               autocomplete="off" maxlength="18"
+                               onkeydown="if(event.key==='Enter') document.getElementById('user-pass').focus()" />
+                    </div>
+
+                    <div class="rpg-sep"></div>
+
+                    <span class="rpg-label px">Secret Code</span>
+                    <div class="rpg-row">
+                        <span class="rpg-arrow px">&#9654;</span>
+                        <input class="rpg-input" id="user-pass" type="password"
+                               placeholder="ENTER CODE..."
+                               maxlength="18"
+                               onkeydown="if(event.key==='Enter') handleLoginClick()" />
+                    </div>
+                </div>
+
+                <div class="rpg-error px" id="login-error"></div>
+
+                <button class="rpg-btn-primary px" id="login-btn" onclick="handleLoginClick()">
+                    &#9829; BEGIN QUEST &#9829;
+                </button>
+            </div>
+            <button class="music-toggle" id="music-toggle-btn">🔊</button>
+        </div>
+    </div>
+    <audio data-sound="click" src="sounds/click.mp3" preload="auto"></audio>
+    <audio data-sound="bg" src="sounds/title-screen.mp3" preload="auto" loop autoplay></audio>
+    <audio data-sound="transition" src="sounds/yandere-1.mp3" preload="auto"></audio>
+    <audio data-sound="yandere" src="sounds/bad ending.mp3" preload="auto"></audio>
+    <audio data-sound="secret" src="sounds/Secret.mp3" preload="auto"></audio>
+    <audio data-sound="victory" src="sounds/victory.mp3" preload="auto"></audio>
+    <script src="functions.js"></script>
+</body>
+</html>

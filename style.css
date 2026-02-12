@@ -83,17 +83,36 @@ body::before {
   inset: 0;
   display: flex;
   flex-direction: column;
-  transition: transform .45s cubic-bezier(.77,0,.18,1), opacity .45s ease;
-  will-change: transform;
+  transition: opacity .45s ease;
+  will-change: opacity;
+  animation: fade-in 0.5s ease-in-out;
 }
 
-.screen-hidden  { transform: translateX(100%); pointer-events: none; }
-.screen-active  { transform: translateX(0); }
-.screen-exit    { transform: translateX(-100%); pointer-events: none; }
+.screen-hidden {
+  display: none;
+}
 
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+body.is-navigating .screen {
+  animation: fade-out 0.5s ease-in-out forwards;
+}
 /* ─── Status Bar ────────────────────────────────────────────── */
 .status-bar {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 56px;
   padding: 14px 24px 0;
   display: flex;
@@ -101,11 +120,23 @@ body::before {
   justify-content: space-between;
   flex-shrink: 0;
   z-index: 10;
+  color: rgba(255,180,220,.8);
 }
 
-.status-time { font-size: 15px; font-weight: 700; letter-spacing: -.3px; }
+.status-time {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  font-weight: normal;
+  letter-spacing: 0;
+}
 
 .status-icons { display: flex; align-items: center; gap: 6px; }
+
+.status-wifi {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'Press Start 2P', monospace;
+}
 
 .signal-bars { display: flex; align-items: flex-end; gap: 2px; height: 12px; }
 .signal-bars span { width: 3px; background: currentColor; border-radius: 1px; }
@@ -128,7 +159,8 @@ body::before {
     );
   z-index: 3;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
   padding: 50px 0 24px;
   overflow: hidden;
 }
@@ -169,13 +201,6 @@ body::before {
   0%, 100% { opacity: .08; transform: scale(1); }
   50%      { opacity: .7;  transform: scale(1.6); }
 }
-
-/* Love meter */
-.sf-love-meter { display: flex; align-items: center; width: 100%; padding: 0 18px; gap: 8px; z-index: 2; position: relative; }
-.sf-player-tag { font-family: 'Press Start 2P', monospace; font-size: 8px; color: #ff80c0; text-shadow: 1px 1px 0 #5a0035, 0 0 8px rgba(255,120,200,.5); flex-shrink: 0; letter-spacing: 1px; }
-.sf-bar-wrap { flex: 1; height: 11px; background: rgba(0,0,0,.75); border: 1px solid rgba(255,80,180,.5); border-radius: 1px; overflow: hidden; }
-.sf-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #cc0077 0%, #ff2090 40%, #ff80c0 80%, #ffd6ee 100%); box-shadow: 0 0 8px rgba(255,50,160,.6); transition: width 1.8s cubic-bezier(.2,1,.3,1); }
-.sf-bar-fill.full { width: 100%; }
 
 /* SF title */
 .sf-title-block { text-align: center; z-index: 2; position: relative; transform: skewX(-2deg); }
@@ -262,7 +287,7 @@ body::before {
 }
 
 /* Stage name */
-.sf-stage-name { font-family: 'Press Start 2P', monospace; font-size: 6px; color: rgba(255,180,230,.45); letter-spacing: 2px; text-transform: uppercase; text-align: center; z-index: 2; position: relative; }
+.sf-stage-name { font-family: 'Press Start 2P', monospace; font-size: 8px; color: rgba(255,180,230,.45); letter-spacing: 2px; text-transform: uppercase; text-align: center; z-index: 2; position: relative; }
 
 /* Press Start */
 .press-start-btn {
@@ -307,7 +332,7 @@ body::before {
 
 .px { font-family: 'Press Start 2P', 'Courier New', monospace; }
 
-#login-screen .status-bar { color: rgba(255,180,220,.8); background: transparent; flex-shrink: 0; width: 100%; position: relative; z-index: 10; }
+#login-screen .status-bar { background: transparent; flex-shrink: 0; width: 100%; position: relative; z-index: 10; }
 
 .login-scroll { flex: 1; overflow-y: auto; width: 100%; padding: 4px 20px 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; scrollbar-width: none; position: relative; z-index: 5; }
 .login-scroll::-webkit-scrollbar { display: none; }
@@ -478,7 +503,7 @@ body::before {
   position: relative;
   z-index: 5;
   text-align: center;
-  font-size: 6px;
+  font-size: 8px;
   letter-spacing: 2px;
   color: rgba(255,180,230,.5);
   text-transform: uppercase;
@@ -502,46 +527,31 @@ body::before {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: rgba(10, 0, 20, 0.8);
-  border: 3px solid #cc3380;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    0 0 20px rgba(255,80,180,.4),
-    0 0 50px rgba(200,0,120,.2),
-    inset 0 0 30px rgba(200,0,120,.15);
-  transition: border-color .5s, box-shadow .5s, background .5s;
-}
-
-.vn-portrait-frame.yandere-frame {
-  border-color: #cc0000;
-  box-shadow:
-    0 0 20px rgba(200,0,0,.5),
-    0 0 50px rgba(200,0,0,.3),
-    inset 0 0 30px rgba(200,0,0,.2);
-  background: rgba(20, 0, 0, 0.85);
-  animation: yandereFlicker 0.3s ease-in-out infinite alternate;
-}
-
-.vn-portrait-frame.spicy-frame {
-  border-color: #ff4488;
-  box-shadow:
-    0 0 25px rgba(255,68,136,.5),
-    0 0 60px rgba(255,68,136,.25),
-    inset 0 0 30px rgba(255,68,136,.15);
-}
-
-@keyframes yandereFlicker {
-  0%   { box-shadow: 0 0 20px rgba(200,0,0,.5), 0 0 50px rgba(200,0,0,.3); }
-  100% { box-shadow: 0 0 30px rgba(255,0,0,.6), 0 0 70px rgba(255,0,0,.35); }
+  transition: all .5s;
 }
 
 .vn-portrait-emoji {
-  font-size: 64px;
-  line-height: 1;
-  filter: drop-shadow(0 0 10px rgba(255,100,200,.4));
-  transition: transform .3s ease;
+  width: 130px;
+  height: 130px;
+  transition: transform .3s ease, filter .5s ease;
+  filter: drop-shadow(0 4px 12px rgba(255,100,200,.4)) drop-shadow(0 0 2px rgba(0,0,0,.5));
+}
+
+.vn-portrait-frame.yandere-frame .vn-portrait-emoji {
+  filter: drop-shadow(0 4px 16px rgba(255,0,0,.7)) drop-shadow(0 0 2px rgba(0,0,0,.5));
+  animation: yandereFlicker .3s ease-in-out infinite alternate;
+}
+
+.vn-portrait-frame.spicy-frame .vn-portrait-emoji {
+  filter: drop-shadow(0 4px 14px rgba(255,68,136,.6)) drop-shadow(0 0 2px rgba(0,0,0,.5));
+}
+
+@keyframes yandereFlicker {
+  0%   { filter: drop-shadow(0 4px 16px rgba(255,0,0,.7)) drop-shadow(0 0 2px rgba(0,0,0,.5)); }
+  100% { filter: drop-shadow(0 4px 24px rgba(255,50,50,.8)) drop-shadow(0 0 2px rgba(0,0,0,.5)); }
 }
 
 .vn-portrait-name {
@@ -805,3 +815,166 @@ body::before {
 @media (max-height: 760px) {
   .phone { transform: scale(.78); }
 }
+
+/* ── VN Ending RESULT screen ── */
+.vn-ending-title {
+  font-size: 24px;
+  color: #ffccee;
+  letter-spacing: 1px;
+  text-shadow: 3px 3px 0 #6b0030, 0 0 18px rgba(255,100,200,.8), 0 0 36px rgba(255,80,180,.4);
+  margin-bottom: 20px;
+  animation: endingPop 1s cubic-bezier(.18,1.25,.5,1) .1s both;
+}
+.ending-yandere .vn-ending-title {
+  color: #ff5555;
+  text-shadow: 3px 3px 0 #4a0000, 0 0 20px rgba(255,0,0,.7);
+}
+
+.vn-results-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background: rgba(8,2,22,.9);
+  border: 2px solid #cc3380;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255,80,160,.2), 0 0 22px rgba(200,40,140,.28), inset 0 0 22px rgba(80,0,60,.4);
+  padding: 18px 16px;
+  margin-bottom: 20px;
+  animation: endingPop 1s cubic-bezier(.18,1.25,.5,1) .2s both;
+}
+.ending-yandere .vn-results-panel {
+  border-color: #aa0000;
+  box-shadow: 0 0 0 1px rgba(255,0,0,.2), 0 0 22px rgba(200,0,0,.3), inset 0 0 22px rgba(80,0,0,.4);
+}
+
+.vn-results-portrait {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.vn-portrait-final {
+  width: 140px;
+  height: 140px;
+  border-radius: 4px;
+  background: rgba(0,0,0,.3);
+  border: 2px solid #cc3380;
+  padding: 6px;
+}
+.ending-yandere .vn-portrait-final {
+  border-color: #aa0000;
+}
+.vn-portrait-final svg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,0));
+  border-radius: 2px;
+}
+
+.vn-results-stats {
+  width: 100%;
+}
+
+.vn-result-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: rgba(255,180,220,.7);
+  letter-spacing: 1px;
+}
+.ending-yandere .vn-result-label {
+  color: rgba(255,150,150,.7);
+}
+
+.vn-result-value {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #fff;
+  text-shadow: 0 0 8px rgba(255,200,240,.6);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.vn-result-sep {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,80,160,.4), transparent);
+  margin: 10px 0;
+}
+.ending-yandere .vn-result-sep {
+  background: linear-gradient(90deg, transparent, rgba(255,0,0,.4), transparent);
+}
+
+.vn-result-item {
+  text-align: center;
+}
+.vn-result-item .vn-result-label {
+  font-size: 7px;
+  margin-bottom: 6px;
+  display: block;
+}
+.vn-result-item .vn-result-value {
+  font-size: 14px;
+  color: #ffccee;
+}
+.ending-yandere .vn-result-item .vn-result-value {
+  color: #ffbaba;
+}
+
+
+.vn-ending-desc {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  line-height: 1.8;
+  color: rgba(255,220,240,.8);
+  text-shadow: 1px 1px 0 rgba(0,0,0,.8);
+  margin-bottom: 30px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  animation: endingPop 1s cubic-bezier(.18,1.25,.5,1) .3s both;
+}
+
+.vn-replay-btn {
+  animation: endingPop 1s cubic-bezier(.18,1.25,.5,1) .4s both;
+}
+
+.music-toggle {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  background: rgba(10, 0, 30, 0.9);
+  border: 3px solid #cc3380;
+  border-radius: 0;
+  color: #ffccee;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+  font-family: 'Press Start 2P', monospace;
+  text-shadow: 1px 1px 0 rgba(0,0,0,.8);
+  box-shadow:
+    inset 2px 2px 0 rgba(255,180,220,.25),
+    inset -2px -2px 0 rgba(80,0,50,.6),
+    0 0 8px rgba(204,51,128,.4);
+  image-rendering: pixelated;
+}
+.music-toggle:hover {
+  background: rgba(255, 60, 140, 0.25);
+  border-color: #ff80c0;
+  box-shadow:
+    inset 2px 2px 0 rgba(255,180,220,.35),
+    inset -2px -2px 0 rgba(80,0,50,.6),
+    0 0 14px rgba(255,80,180,.5);
+}
+.music-toggle:active {
+  box-shadow:
+    inset -2px -2px 0 rgba(255,180,220,.25),
+    inset 2px 2px 0 rgba(80,0,50,.6);
+}
+
