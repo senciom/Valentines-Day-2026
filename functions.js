@@ -89,8 +89,6 @@ function updateClocks() {
         if (el) el.textContent = t;
     });
 }
-updateClocks();
-setInterval(updateClocks, 30000);
 
 let playerName = 'You';
 try {
@@ -132,6 +130,7 @@ function spawnPetal() {
 let petalTimer = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+    updateClocks();
     buildStars();
     if (floatContainer) {
         petalTimer = setInterval(spawnPetal, 650);
@@ -141,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fill = document.getElementById('sf-bar-fill');
     if (fill) setTimeout(() => fill.classList.add('full'), 400);
 });
+setInterval(updateClocks, 30000);
 
 /* ── Page Navigation with Animation ──────────────── */
 function navigateTo(url) {
