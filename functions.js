@@ -338,140 +338,140 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 /* ── Val expressions ─────────────────────────────── */
 // 1. Redefined Base: FIXED Short Hair (No Mullet)
 const HEAD_BASE = `
-  <defs><style>.px{shape-rendering:crispEdges;}</style></defs>
-  
-  <rect x="13" y="16" width="6" height="4" fill="#d09668" class="px"/>
-  
-  <rect x="9" y="7" width="14" height="8" fill="#101010" class="px"/>
-  
-  <rect x="10" y="5" width="12" height="11" fill="#d09668" class="px"/>
-  <rect x="9" y="8" width="1" height="5" fill="#d09668" class="px"/> <rect x="22" y="8" width="1" height="5" fill="#d09668" class="px"/> <rect x="9" y="2" width="14" height="4" fill="#101010" class="px"/>
-  
-  <rect x="9" y="6" width="1" height="2" fill="#101010" class="px"/>   <rect x="22" y="6" width="1" height="2" fill="#101010" class="px"/>  <rect x="8" y="7" width="1" height="2" fill="#101010" class="px"/>
-  <rect x="23" y="7" width="1" height="2" fill="#101010" class="px"/>
-  
-  <rect x="13" y="2" width="10" height="4" fill="#101010" class="px"/> <rect x="18" y="6" width="4" height="1" fill="#101010" class="px"/>  <rect x="21" y="5" width="1" height="2" fill="#101010" class="px"/>  <rect x="14" y="2" width="6" height="1" fill="#333344" opacity="0.5" class="px"/> 
+  <defs><style>.sp{shape-rendering:crispEdges;}</style></defs>
+
+  <rect x="13" y="16" width="6" height="4" fill="#d09668" class="sp"/>
+
+  <rect x="9" y="7" width="14" height="8" fill="#101010" class="sp"/>
+
+  <rect x="10" y="5" width="12" height="11" fill="#d09668" class="sp"/>
+  <rect x="9" y="8" width="1" height="5" fill="#d09668" class="sp"/> <rect x="22" y="8" width="1" height="5" fill="#d09668" class="sp"/> <rect x="9" y="2" width="14" height="4" fill="#101010" class="sp"/>
+
+  <rect x="9" y="6" width="1" height="2" fill="#101010" class="sp"/>   <rect x="22" y="6" width="1" height="2" fill="#101010" class="sp"/>  <rect x="8" y="7" width="1" height="2" fill="#101010" class="sp"/>
+  <rect x="23" y="7" width="1" height="2" fill="#101010" class="sp"/>
+
+  <rect x="13" y="2" width="10" height="4" fill="#101010" class="sp"/> <rect x="18" y="6" width="4" height="1" fill="#101010" class="sp"/>  <rect x="21" y="5" width="1" height="2" fill="#101010" class="sp"/>  <rect x="14" y="2" width="6" height="1" fill="#333344" opacity="0.5" class="sp"/>
 `;
 
 const EYES_NORMAL = `
-  <rect x="11" y="9" width="3" height="2" fill="#ffffff" class="px"/>
-  <rect x="18" y="9" width="3" height="2" fill="#ffffff" class="px"/>
-  <rect x="12" y="9" width="1" height="2" fill="#2b1a10" class="px"/>
-  <rect x="19" y="9" width="1" height="2" fill="#2b1a10" class="px"/>
+  <rect x="11" y="9" width="3" height="2" fill="#ffffff" class="sp"/>
+  <rect x="18" y="9" width="3" height="2" fill="#ffffff" class="sp"/>
+  <rect x="12" y="9" width="1" height="2" fill="#2b1a10" class="sp"/>
+  <rect x="19" y="9" width="1" height="2" fill="#2b1a10" class="sp"/>
 `;
 
 const EYES_WITH_GLASSES = `
-  <rect x="10" y="8" width="6" height="5" fill="#000" class="px"/>
-  <rect x="17" y="8" width="6" height="5" fill="#000" class="px"/>
-  <rect x="15" y="9" width="2" height="2" fill="#000" class="px"/>
-  <rect x="11" y="9" width="1" height="1" fill="#fff" opacity="0.7" class="px"/>
-  <rect x="18" y="9" width="1" height="1" fill="#fff" opacity="0.7" class="px"/>
+  <rect x="10" y="8" width="6" height="5" fill="#000" class="sp"/>
+  <rect x="17" y="8" width="6" height="5" fill="#000" class="sp"/>
+  <rect x="15" y="9" width="2" height="2" fill="#000" class="sp"/>
+  <rect x="11" y="9" width="1" height="1" fill="#fff" opacity="0.7" class="sp"/>
+  <rect x="18" y="9" width="1" height="1" fill="#fff" opacity="0.7" class="sp"/>
 `;
 
 const wrapSVG = (content) => `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">${HEAD_BASE}${content}</svg>`;
 
 const VAL_FACES = {
   happy: wrapSVG(`
-    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
+    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
     ${EYES_NORMAL}
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/> <rect x="14" y="14" width="1" height="1" fill="#b05e48" class="px"/>
-    <rect x="17" y="14" width="1" height="1" fill="#b05e48" class="px"/>
-    <rect x="15" y="15" width="2" height="1" fill="#b05e48" class="px"/>
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/> <rect x="14" y="14" width="1" height="1" fill="#b05e48" class="sp"/>
+    <rect x="17" y="14" width="1" height="1" fill="#b05e48" class="sp"/>
+    <rect x="15" y="15" width="2" height="1" fill="#b05e48" class="sp"/>
   `),
 
   bright: wrapSVG(`
-    <rect x="11" y="7" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="18" y="7" width="3" height="1" fill="#2b1a10" class="px"/>
+    <rect x="11" y="7" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="18" y="7" width="3" height="1" fill="#2b1a10" class="sp"/>
     ${EYES_NORMAL}
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="14" y="14" width="4" height="2" fill="#ffffff" class="px"/>
-    <rect x="14" y="14" width="1" height="2" fill="#b05e48" class="px"/> <rect x="17" y="14" width="1" height="2" fill="#b05e48" class="px"/>
-    <rect x="15" y="16" width="2" height="1" fill="#b05e48" class="px"/>
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="14" y="14" width="4" height="2" fill="#ffffff" class="sp"/>
+    <rect x="14" y="14" width="1" height="2" fill="#b05e48" class="sp"/> <rect x="17" y="14" width="1" height="2" fill="#b05e48" class="sp"/>
+    <rect x="15" y="16" width="2" height="1" fill="#b05e48" class="sp"/>
   `),
 
   blush: wrapSVG(`
-    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
+    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
     ${EYES_NORMAL}
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="15" y="14" width="2" height="1" fill="#b05e48" class="px"/>
-    <rect x="10" y="11" width="2" height="1" fill="#ff8888" opacity="0.6" class="px"/>
-    <rect x="20" y="11" width="2" height="1" fill="#ff8888" opacity="0.6" class="px"/>
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="15" y="14" width="2" height="1" fill="#b05e48" class="sp"/>
+    <rect x="10" y="11" width="2" height="1" fill="#ff8888" opacity="0.6" class="sp"/>
+    <rect x="20" y="11" width="2" height="1" fill="#ff8888" opacity="0.6" class="sp"/>
   `),
 
   plead: wrapSVG(`
-    <rect x="11" y="7" width="1" height="1" fill="#2b1a10" class="px"/> <rect x="12" y="8" width="2" height="1" fill="#2b1a10" class="px"/>
-    <rect x="20" y="7" width="1" height="1" fill="#2b1a10" class="px"/> <rect x="18" y="8" width="2" height="1" fill="#2b1a10" class="px"/>
+    <rect x="11" y="7" width="1" height="1" fill="#2b1a10" class="sp"/> <rect x="12" y="8" width="2" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="20" y="7" width="1" height="1" fill="#2b1a10" class="sp"/> <rect x="18" y="8" width="2" height="1" fill="#2b1a10" class="sp"/>
     ${EYES_NORMAL}
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="15" y="14" width="2" height="1" fill="#b05e48" class="px"/>
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="15" y="14" width="2" height="1" fill="#b05e48" class="sp"/>
   `),
 
   annoyed: wrapSVG(`
-    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="11" y="9" width="3" height="2" fill="#ffffff" class="px"/>
-    <rect x="18" y="9" width="3" height="2" fill="#ffffff" class="px"/>
-    <rect x="13" y="9" width="1" height="2" fill="#2b1a10" class="px"/>
-    <rect x="20" y="9" width="1" height="2" fill="#2b1a10" class="px"/>
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="14" y="15" width="4" height="1" fill="#b05e48" class="px"/>
+    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="11" y="9" width="3" height="2" fill="#ffffff" class="sp"/>
+    <rect x="18" y="9" width="3" height="2" fill="#ffffff" class="sp"/>
+    <rect x="13" y="9" width="1" height="2" fill="#2b1a10" class="sp"/>
+    <rect x="20" y="9" width="1" height="2" fill="#2b1a10" class="sp"/>
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="14" y="15" width="4" height="1" fill="#b05e48" class="sp"/>
   `),
 
   serious: wrapSVG(`
-    <rect x="11" y="8" width="2" height="1" fill="#2b1a10" class="px"/>
-    <rect x="13" y="9" width="1" height="1" fill="#2b1a10" class="px"/> <rect x="18" y="9" width="1" height="1" fill="#2b1a10" class="px"/> <rect x="19" y="8" width="2" height="1" fill="#2b1a10" class="px"/>
+    <rect x="11" y="8" width="2" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="13" y="9" width="1" height="1" fill="#2b1a10" class="sp"/> <rect x="18" y="9" width="1" height="1" fill="#2b1a10" class="sp"/> <rect x="19" y="8" width="2" height="1" fill="#2b1a10" class="sp"/>
     ${EYES_NORMAL}
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="14" y="15" width="4" height="1" fill="#b05e48" class="px"/>
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="14" y="15" width="4" height="1" fill="#b05e48" class="sp"/>
   `),
 
   smug: wrapSVG(`
-    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="px"/> <rect x="18" y="7" width="3" height="1" fill="#2b1a10" class="px"/> ${EYES_NORMAL}
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="14" y="15" width="2" height="1" fill="#b05e48" class="px"/>
-    <rect x="16" y="14" width="2" height="1" fill="#b05e48" class="px"/>
+    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="sp"/> <rect x="18" y="7" width="3" height="1" fill="#2b1a10" class="sp"/> ${EYES_NORMAL}
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="14" y="15" width="2" height="1" fill="#b05e48" class="sp"/>
+    <rect x="16" y="14" width="2" height="1" fill="#b05e48" class="sp"/>
   `),
 
   smugWithGlasses: wrapSVG(`
-    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="px"/> <rect x="18" y="7" width="3" height="1" fill="#2b1a10" class="px"/> ${EYES_WITH_GLASSES}
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="14" y="15" width="2" height="1" fill="#b05e48" class="px"/>
-    <rect x="16" y="14" width="2" height="1" fill="#b05e48" class="px"/>
+    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="sp"/> <rect x="18" y="7" width="3" height="1" fill="#2b1a10" class="sp"/> ${EYES_WITH_GLASSES}
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="14" y="15" width="2" height="1" fill="#b05e48" class="sp"/>
+    <rect x="16" y="14" width="2" height="1" fill="#b05e48" class="sp"/>
   `),
 
   whisper: wrapSVG(`
-    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
+    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
     ${EYES_NORMAL}
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="16" y="15" width="2" height="1" fill="#b05e48" class="px"/>
-    <rect x="18" y="13" width="1" height="3" fill="#d09668" class="px"/> `),
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="16" y="15" width="2" height="1" fill="#b05e48" class="sp"/>
+    <rect x="18" y="13" width="1" height="3" fill="#d09668" class="sp"/> `),
 
   blank: wrapSVG(`
-    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="12" y="10" width="1" height="1" fill="#2b1a10" class="px"/>
-    <rect x="19" y="10" width="1" height="1" fill="#2b1a10" class="px"/>
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="15" y="15" width="2" height="1" fill="#b05e48" class="px"/>
+    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="12" y="10" width="1" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="19" y="10" width="1" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="15" y="15" width="2" height="1" fill="#b05e48" class="sp"/>
   `),
 
   yandere: wrapSVG(`
-    <rect x="10" y="5" width="12" height="6" fill="#000000" opacity="0.3" class="px"/>
-    
-    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="px"/>
-    
-    <rect x="11" y="9" width="3" height="2" fill="#ffffff" class="px"/>
-    <rect x="18" y="9" width="3" height="2" fill="#ffffff" class="px"/>
-    <rect x="12" y="9" width="1" height="2" fill="#000000" class="px"/> <rect x="19" y="9" width="1" height="2" fill="#000000" class="px"/>
-    
-    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="px"/>
-    <rect x="14" y="15" width="1" height="1" fill="#b05e48" class="px"/>
-    <rect x="17" y="15" width="1" height="1" fill="#b05e48" class="px"/>
-    <rect x="15" y="16" width="2" height="1" fill="#b05e48" class="px"/>
+    <rect x="10" y="5" width="12" height="6" fill="#000000" opacity="0.3" class="sp"/>
+
+    <rect x="11" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+    <rect x="18" y="8" width="3" height="1" fill="#2b1a10" class="sp"/>
+
+    <rect x="11" y="9" width="3" height="2" fill="#ffffff" class="sp"/>
+    <rect x="18" y="9" width="3" height="2" fill="#ffffff" class="sp"/>
+    <rect x="12" y="9" width="1" height="2" fill="#000000" class="sp"/> <rect x="19" y="9" width="1" height="2" fill="#000000" class="sp"/>
+
+    <rect x="15" y="13" width="2" height="1" fill="#a06a45" class="sp"/>
+    <rect x="14" y="15" width="1" height="1" fill="#b05e48" class="sp"/>
+    <rect x="17" y="15" width="1" height="1" fill="#b05e48" class="sp"/>
+    <rect x="15" y="16" width="2" height="1" fill="#b05e48" class="sp"/>
   `),
 };
 
