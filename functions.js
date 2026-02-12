@@ -2,27 +2,45 @@
 
 /* ── Mobile Audio Unlock ─────────────────────────── */
 // Mobile browsers block audio until a user gesture on the current page.
-// This unlocks all <audio> elements on the first tap/click.
-(function unlockAudio() {
+// Instead of the play+pause trick (which can start/stop the wrong tracks),
+// we queue any play() calls that fail due to autoplay policy and replay
+// them on the first real user gesture.
+(function setupAudioUnlock() {
+  const pendingQueue = [];   // { audio, volume }
   let unlocked = false;
-  function unlock() {
+
+  function onGesture() {
     if (unlocked) return;
     unlocked = true;
-    document.querySelectorAll('audio').forEach(a => {
-      // Play + pause trick to "warm up" the audio element
-      const p = a.play();
-      if (p) p.then(() => { if (!a.hasAttribute('autoplay') && a.paused === false) a.pause(); }).catch(() => {});
+    pendingQueue.forEach(({ audio, volume }) => {
+      if (volume !== undefined) audio.volume = volume;
+      audio.play().catch(() => {});
     });
-    // Also try resuming AudioContext if one exists
-    if (window.AudioContext || window.webkitAudioContext) {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      ctx.resume().then(() => ctx.close());
-    }
-    document.removeEventListener('touchstart', unlock, true);
-    document.removeEventListener('click', unlock, true);
+    pendingQueue.length = 0;
+    document.removeEventListener('touchstart', onGesture, true);
+    document.removeEventListener('click', onGesture, true);
+    document.removeEventListener('touchend', onGesture, true);
   }
-  document.addEventListener('touchstart', unlock, true);
-  document.addEventListener('click', unlock, true);
+
+  document.addEventListener('touchstart', onGesture, true);
+  document.addEventListener('click', onGesture, true);
+  document.addEventListener('touchend', onGesture, true);
+
+  // Global helper — tries to play; if blocked, queues for first gesture.
+  window.safePlay = function (audio, volume) {
+    if (!audio) return;
+    if (volume !== undefined) audio.volume = volume;
+    const p = audio.play();
+    if (p) {
+      p.catch(() => {
+        if (!unlocked) {
+          if (!pendingQueue.some(q => q.audio === audio)) {
+            pendingQueue.push({ audio, volume });
+          }
+        }
+      });
+    }
+  };
 })();
 
 /* ── Global Music State ─────────────────────────── */
@@ -224,7 +242,7 @@ function goToLogin() {
   const clickSound = document.querySelector('audio[data-sound="click"]');
   if (clickSound) {
     clickSound.currentTime = 0;
-    clickSound.play();
+    safePlay(clickSound);
   }
   clearInterval(petalTimer);
   const btn = document.querySelector('.press-start-btn');
@@ -257,7 +275,7 @@ function handleLoginClick() {
   const clickSound = document.querySelector('audio[data-sound="click"]');
   if (clickSound) {
     clickSound.currentTime = 0;
-    clickSound.play();
+    safePlay(clickSound);
   }
 
   const name    = document.getElementById('user-name').value.trim();
@@ -645,8 +663,7 @@ function showEnding(type, title, item, desc, face, affection) {
   const sound = document.querySelector(`audio[data-sound="${soundType}"]`);
   if (sound) {
     sound.currentTime = 0;
-    sound.volume = volume;
-    sound.play().catch(e => console.warn("Autoplay prevented for ending sound."));
+    safePlay(sound, volume);
   }
 
   // Set texts
@@ -706,8 +723,7 @@ async function startVN() {
 
   const music = document.querySelector('audio[data-sound="bg"]');
   if (music) {
-    music.volume = 0.4; // Don't make it too loud
-    music.play().catch(e => console.warn("Autoplay was prevented. User must interact with the page first."));
+    safePlay(music, 0.4);
   }
 
   await wait(900);
@@ -769,8 +785,7 @@ async function startVN() {
   const transitionMusic = document.querySelector('audio[data-sound="transition"]');
   if (transitionMusic) {
       transitionMusic.currentTime = 0;
-      transitionMusic.volume = 0.5;
-      transitionMusic.play();
+      safePlay(transitionMusic, 0.5);
   }
 
   await vnLine('MC', "I said no.");
@@ -868,6 +883,11 @@ async function yandereEnding() {
 
 /* ── Auto-Init based on Page ────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  // If we are on the intro page, start bg music (queued on mobile until first tap)
+  if (document.getElementById('float-container')) {
+    const introBg = document.querySelector('audio[data-sound="bg"]');
+    if (introBg) safePlay(introBg, 0.4);
+  }
   // If we are on the login page
   if (document.getElementById('login-particles')) {
     initLoginScreen();
