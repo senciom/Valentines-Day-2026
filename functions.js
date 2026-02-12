@@ -48,7 +48,12 @@ function initGlobalMusicState() {
   const musicToggleBtn = document.getElementById('music-toggle-btn');
   const audioElements = document.querySelectorAll('audio');
 
-  let isMuted = sessionStorage.getItem('isMuted') === 'true';
+  let isMuted = false;
+  try {
+    isMuted = sessionStorage.getItem('isMuted') === 'true';
+  } catch (e) {
+    console.warn('Storage access denied');
+  }
 
   function applyMuteState() {
     audioElements.forEach(audio => {
@@ -62,7 +67,9 @@ function initGlobalMusicState() {
   if (musicToggleBtn) {
     musicToggleBtn.addEventListener('click', () => {
       isMuted = !isMuted;
-      sessionStorage.setItem('isMuted', isMuted);
+      try {
+        sessionStorage.setItem('isMuted', isMuted);
+      } catch (e) {}
       applyMuteState();
     });
   }
@@ -85,7 +92,10 @@ function updateClocks() {
 updateClocks();
 setInterval(updateClocks, 30000);
 
-let playerName = sessionStorage.getItem('playerName') || 'You';
+let playerName = 'You';
+try {
+  playerName = sessionStorage.getItem('playerName') || 'You';
+} catch (e) {}
 
 /* ── Title Screen Particles ─────────────────────── */
 const floatContainer = document.getElementById('float-container');
@@ -100,7 +110,6 @@ function buildStars() {
         floatContainer.appendChild(s);
     }
 }
-buildStars();
 
 const petalSet = ['🌸', '🌸', '🌸', '💮', '🌺', '💕', '✨'];
 
@@ -121,10 +130,17 @@ function spawnPetal() {
 }
 
 let petalTimer = null;
-if (floatContainer) {
-    petalTimer = setInterval(spawnPetal, 650);
-    for (let i = 0; i < 6; i++) setTimeout(spawnPetal, i * 180);
-}
+
+document.addEventListener('DOMContentLoaded', () => {
+    buildStars();
+    if (floatContainer) {
+        petalTimer = setInterval(spawnPetal, 650);
+        for (let i = 0; i < 6; i++) setTimeout(spawnPetal, i * 180);
+    }
+    
+    const fill = document.getElementById('sf-bar-fill');
+    if (fill) setTimeout(() => fill.classList.add('full'), 400);
+});
 
 /* ── Page Navigation with Animation ──────────────── */
 function navigateTo(url) {
@@ -267,7 +283,6 @@ function animateLoveBar() {
   const fill = document.getElementById('sf-bar-fill');
   if (fill) setTimeout(() => fill.classList.add('full'), 400);
 }
-animateLoveBar();
 
 /* ── Login validation ────────────────────────────── */
 let _hintShown = false;
@@ -314,7 +329,9 @@ function handleLoginClick() {
   }
 
   _hintShown = false;
-  sessionStorage.setItem('playerName', name);
+  try {
+    sessionStorage.setItem('playerName', name);
+  } catch (e) {}
   playerName = name;
   errorEl.textContent = '';
   btn.textContent = '♥ LOADING... ♥';
@@ -491,16 +508,19 @@ const VAL_MOODS = {
 
 function setMood(mood) {
   const data = VAL_MOODS[mood] || VAL_MOODS.happy;
-  document.getElementById('vn-portrait-emoji').innerHTML = data.svg;
+  const emojiEl = document.getElementById('vn-portrait-emoji');
+  if (emojiEl) emojiEl.innerHTML = data.svg;
 
   const bg = document.getElementById('vn-bg');
-  bg.className = 'vn-bg ' + data.bg;
+  if (bg) bg.className = 'vn-bg ' + data.bg;
 
   // Portrait frame color shift
   const frame = document.getElementById('vn-portrait-frame');
-  frame.className = 'vn-portrait-frame';
-  if (mood === 'yandere') frame.classList.add('yandere-frame');
-  if (mood === 'smug' || mood === 'whisper' || mood === 'smugWithGlasses') frame.classList.add('spicy-frame');
+  if (frame) {
+    frame.className = 'vn-portrait-frame';
+    if (mood === 'yandere') frame.classList.add('yandere-frame');
+    if (mood === 'smug' || mood === 'whisper' || mood === 'smugWithGlasses') frame.classList.add('spicy-frame');
+  }
 }
 
 /* ── VN particles ────────────────────────────────── */
