@@ -841,7 +841,7 @@ async function goodEnding(mcLine) {
   showEnding(
     'ending-good',
     'Date Secured!',
-    'Boquet of Flowers',
+    'Bouquet of Flowers',
     'You played it cool and secured a perfect Valentine\'s date. Well done!',
     'bright',
     'MAX'
