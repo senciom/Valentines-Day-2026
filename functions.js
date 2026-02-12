@@ -1,5 +1,30 @@
 'use strict';
 
+/* ── Mobile Audio Unlock ─────────────────────────── */
+// Mobile browsers block audio until a user gesture on the current page.
+// This unlocks all <audio> elements on the first tap/click.
+(function unlockAudio() {
+  let unlocked = false;
+  function unlock() {
+    if (unlocked) return;
+    unlocked = true;
+    document.querySelectorAll('audio').forEach(a => {
+      // Play + pause trick to "warm up" the audio element
+      const p = a.play();
+      if (p) p.then(() => { if (!a.hasAttribute('autoplay') && a.paused === false) a.pause(); }).catch(() => {});
+    });
+    // Also try resuming AudioContext if one exists
+    if (window.AudioContext || window.webkitAudioContext) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      ctx.resume().then(() => ctx.close());
+    }
+    document.removeEventListener('touchstart', unlock, true);
+    document.removeEventListener('click', unlock, true);
+  }
+  document.addEventListener('touchstart', unlock, true);
+  document.addEventListener('click', unlock, true);
+})();
+
 /* ── Global Music State ─────────────────────────── */
 function initGlobalMusicState() {
   const musicToggleBtn = document.getElementById('music-toggle-btn');
