@@ -891,6 +891,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // If we are on the login page
   if (document.getElementById('login-particles')) {
     initLoginScreen();
+    const loginBg = document.querySelector('audio[data-sound="bg"]');
+    if (loginBg) safePlay(loginBg, 0.4);
   }
   // If we are on the visual novel page
   if (document.getElementById('vn-textbox')) {
